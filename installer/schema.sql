@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `status` enum('active','suspended') NOT NULL DEFAULT 'active',
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `email_verify_token` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)

@@ -16,8 +16,8 @@
             <div class="card-body">
                 <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
-                <?php require_once '../app/csrf.php'; ?>
                 <?php endif; ?>
+                <?php require_once '../app/csrf.php'; ?>
                 <form action="../app/login.php" method="post">
                     <?php echo csrf_input(); ?>
                     <div class="mb-3">
@@ -28,8 +28,10 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
+                <hr>
+                <a href="../app/google_auth.php" class="btn btn-danger w-100">Sign in with Google</a>
             </div>
         </div>
     </div>

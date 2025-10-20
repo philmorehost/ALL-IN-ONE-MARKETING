@@ -1,0 +1,15 @@
+<?php
+// Placeholder for API keys and settings
+// In a real application, use environment variables for security.
+
+// Google OAuth
+define('GOOGLE_CLIENT_ID', 'YOUR_GOOGLE_CLIENT_ID');
+define('GOOGLE_CLIENT_SECRET', 'YOUR_GOOGLE_CLIENT_SECRET');
+define('GOOGLE_REDIRECT_URI', 'http://localhost:8000/app/google_callback.php'); // Adjust if your domain/port is different
+
+// Paystack
+define('PAYSTACK_SECRET_KEY', 'YOUR_PAYSTACK_SECRET_KEY');
+define('PAYSTACK_PUBLIC_KEY', 'YOUR_PAYSTACK_PUBLIC_KEY');
+
+// Generative AI
+define('AI_API_KEY', 'YOUR_AI_API_KEY');

@@ -26,18 +26,29 @@ function process_jobs() {
         }
 
         try {
-            // 3. Process the job
-            echo "Processing job ID: {$job['id']}" . PHP_EOL;
-            // Placeholder for job handler logic
-            // e.g., if (class_exists($job['handler'])) { $handler = new $job['handler'](); $handler->handle(json_decode($job['payload'], true)); }
+            // Autoload the job handler class
+            $handler_file = __DIR__ . '/' . str_replace('App\\', '', $job['handler']) . '.php';
+            $handler_file = str_replace('/', DIRECTORY_SEPARATOR, $handler_file); // Adjust for OS
 
-            // For now, we'll just simulate a successful job
-            sleep(1); // Simulate work
+            if (file_exists($handler_file)) {
+                require_once $handler_file;
 
-            // 4. On success, delete the job
-            $deleteStmt = $pdo->prepare("DELETE FROM jobs WHERE id = ?");
-            $deleteStmt->execute([$job['id']]);
-            echo "Job ID: {$job['id']} completed successfully." . PHP_EOL;
+                $handler_class = $job['handler'];
+                if (class_exists($handler_class)) {
+                    $handler = new $handler_class();
+                    $payload = json_decode($job['payload'], true);
+                    $handler->handle($payload);
+
+                    // On success, delete the job
+                    $deleteStmt = $pdo->prepare("DELETE FROM jobs WHERE id = ?");
+                    $deleteStmt->execute([$job['id']]);
+                    echo "Job ID: {$job['id']} completed successfully." . PHP_EOL;
+                } else {
+                    throw new Exception("Job handler class not found: {$handler_class}");
+                }
+            } else {
+                throw new Exception("Job handler file not found: {$handler_file}");
+            }
 
         } catch (Exception $e) {
             // 5. On failure, log the error and update
@@ -48,5 +59,7 @@ function process_jobs() {
         }
     }
 }
+
+process_jobs();
 
 process_jobs();

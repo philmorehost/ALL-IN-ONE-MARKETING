@@ -1,0 +1,8 @@
+# Ignore sensitive configuration files
+config/api_keys.php
+
+# Ignore logs
+*.log
+
+# Ignore user-uploaded files
+public/uploads/

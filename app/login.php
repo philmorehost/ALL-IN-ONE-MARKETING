@@ -12,6 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
+        if ($user['email_verified_at'] === null) {
+            $_SESSION['error'] = 'Please verify your email address before logging in.';
+            redirect('../public/login.php');
+        }
         $_SESSION['user_id'] = $user['id'];
         redirect('../public/dashboard.php');
     } else {

@@ -4,6 +4,11 @@ if (!is_logged_in()) {
     redirect('login.php');
 }
 
+$user_id = $_SESSION['user_id'];
+$userStmt = pdo()->prepare("SELECT * FROM users WHERE id = ?");
+$userStmt->execute([$user_id]);
+$user = $userStmt->fetch();
+
 $plan = null;
 if (isset($_GET['plan_id'])) {
     $stmt = pdo()->prepare("SELECT * FROM plans WHERE id = ?");
@@ -36,8 +41,10 @@ if (!$plan) {
                     <div class="col-md-6">
                         <h4>Pay with Paystack</h4>
                         <p>Click the button below to pay securely with Paystack.</p>
-                        <!-- Paystack button will go here -->
-                        <button class="btn btn-primary" disabled>Pay with Paystack (Coming Soon)</button>
+                        <form id="paymentForm">
+                            <input type="hidden" name="plan_id" value="<?php echo $plan['id']; ?>">
+                            <button type="submit" class="btn btn-primary">Pay with Paystack</button>
+                        </form>
                     </div>
                     <div class="col-md-6">
                         <h4>Manual Bank Transfer</h4>
@@ -63,5 +70,29 @@ if (!$plan) {
             </div>
         </div>
     </div>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        const paymentForm = document.getElementById('paymentForm');
+        paymentForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            let handler = PaystackPop.setup({
+                key: '<?php echo PAYSTACK_PUBLIC_KEY; ?>', // Replace with your public key
+                email: '<?php echo $user['email']; ?>',
+                amount: <?php echo $plan['price'] * 100; ?>,
+                ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our system will generate one for you
+                // label: "Optional string that replaces customer email"
+                onClose: function(){
+                    alert('Window closed.');
+                },
+                callback: function(response){
+                    // Redirect to a verification page
+                    window.location.href = '../app/verify_paystack.php?reference=' + response.reference;
+                }
+            });
+            handler.openIframe();
+        });
+    </script>
 </body>
 </html>
