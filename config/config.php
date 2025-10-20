@@ -1,0 +1,2 @@
+<?php
+define('INSTALLED', false);

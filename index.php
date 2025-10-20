@@ -1,3 +1,11 @@
+<?php
+require_once 'config/config.php';
+
+if (!INSTALLED) {
+    header('Location: installer/index.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
