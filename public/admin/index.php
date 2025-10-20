@@ -16,8 +16,10 @@
             <div class="card-body">
                 <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
+                <?php require_once '../../app/csrf.php'; ?>
                 <?php endif; ?>
                 <form action="../../app/admin/login.php" method="post">
+                    <?php echo csrf_input(); ?>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>

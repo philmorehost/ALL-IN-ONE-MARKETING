@@ -1,7 +1,9 @@
 <?php
 require_once 'functions.php';
+require_once 'csrf.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    validate_csrf_token();
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
