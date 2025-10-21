@@ -24,6 +24,9 @@ define(\"PAYSTACK_PUBLIC_KEY\", \"{$_POST['PAYSTACK_PUBLIC_KEY']}\");
 
 // Generative AI
 define(\"AI_API_KEY\", \"{$_POST['AI_API_KEY']}\");
+
+// PhilmoreSMS
+define("PHILMORESMS_API_KEY", "{$_POST['PHILMORESMS_API_KEY']}");
 ";
 
     file_put_contents(__DIR__ . '/../../config/api_keys.php', $new_config);

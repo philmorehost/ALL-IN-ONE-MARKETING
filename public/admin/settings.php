@@ -22,6 +22,7 @@ require_once '../../app/csrf.php';
                     <li class="nav-item"><a class="nav-link" href="plans.php">Plans</a></li>
                     <li class="nav-item"><a class="nav-link" href="payments.php">Payments</a></li>
                     <li class="nav-item"><a class="nav-link" href="settings.php">Settings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="landing_page_editor.php">Landing Page</a></li>
                 </ul>
             </div>
             <a href="../../app/logout.php" class="btn btn-danger">Logout</a>
@@ -60,6 +61,13 @@ require_once '../../app/csrf.php';
                     <div class="mb-3">
                         <label for="ai_api_key" class="form-label">API Key</label>
                         <input type="password" class="form-control" id="ai_api_key" name="AI_API_KEY" value="<?php echo htmlspecialchars(AI_API_KEY); ?>">
+                    </div>
+
+                    <hr>
+                    <h4>PhilmoreSMS</h4>
+                    <div class="mb-3">
+                        <label for="philmoresms_api_key" class="form-label">API Key</label>
+                        <input type="password" class="form-control" id="philmoresms_api_key" name="PHILMORESMS_API_KEY" value="<?php echo htmlspecialchars(PHILMORESMS_API_KEY ?? ''); ?>">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save Settings</button>

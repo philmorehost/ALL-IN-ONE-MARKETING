@@ -60,6 +60,33 @@ function process_jobs() {
     }
 }
 
+function publish_scheduled_posts() {
+    $pdo = pdo();
+
+    $stmt = $pdo->prepare(
+        "SELECT p.*, GROUP_CONCAT(sa.platform) as platforms
+         FROM posts p
+         JOIN post_accounts pa ON p.id = pa.post_id
+         JOIN social_accounts sa ON pa.account_id = sa.id
+         WHERE p.status = 'scheduled' AND p.scheduled_at <= NOW()
+         GROUP BY p.id"
+    );
+    $stmt->execute();
+    $posts = $stmt->fetchAll();
+
+    foreach ($posts as $post) {
+        // Placeholder for publishing to social media APIs
+        $log_message = "Publishing post ID {$post['id']} to {$post['platforms']}:\n{$post['content']}\n\n";
+        file_put_contents(__DIR__ . '/../published_posts.log', $log_message, FILE_APPEND);
+
+        // Update post status
+        $updateStmt = $pdo->prepare("UPDATE posts SET status = 'published', published_at = NOW() WHERE id = ?");
+        $updateStmt->execute([$post['id']]);
+        echo "Post ID: {$post['id']} published." . PHP_EOL;
+    }
+}
+
 process_jobs();
+publish_scheduled_posts();
 
 process_jobs();

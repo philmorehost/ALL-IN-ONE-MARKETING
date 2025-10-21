@@ -31,6 +31,9 @@ $plans = $stmt->fetchAll();
                     <li class="nav-item">
                         <a class="nav-link" href="settings.php">Settings</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="landing_page_editor.php">Landing Page</a>
+                    </li>
                 </ul>
             </div>
             <a href="../../app/logout.php" class="btn btn-danger">Logout</a>

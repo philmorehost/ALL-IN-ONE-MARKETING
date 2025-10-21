@@ -24,6 +24,24 @@ if (!is_logged_in()) {
                     <li class="nav-item">
                         <a class="nav-link" href="ai_content.php">AI Content Assistant</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="social_accounts.php">Social Accounts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendar.php">Content Calendar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="email_marketing.php">Email Marketing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sms_marketing.php">SMS Marketing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="landing_pages.php">Landing Pages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qr_codes.php">QR Codes</a>
+                    </li>
                 </ul>
             </div>
             <a href="../app/logout.php" class="btn btn-danger">Logout</a>
